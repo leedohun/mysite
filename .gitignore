@@ -1,6 +1,7 @@
 /__pycache__
+/mysite/__pycache__
 /mysite/__init__.py
-/mysite/setting.py
+/mysite/settings.py
 /mysite/asgi.py
 /mysite/wsgi.py
 
