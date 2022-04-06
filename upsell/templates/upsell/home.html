@@ -1,0 +1,32 @@
+<!-- home.html -->
+<h1>upsell DB 제작 페이지</h1>
+
+<h3>product</h3>
+<form action="{% url 'products' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">create</button>
+</form>
+
+<br />
+
+<h3>order</h3>
+<form action="{% url 'orders' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">create</button>
+</form>
+
+<br />
+
+<h3>order_itme</h3>
+<form action="{% url 'order_item' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">create</button>
+</form>
+
+<br />
+
+<h3>category</h3>
+<form action="{% url 'categories' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">create</button>
+</form>
