@@ -23,5 +23,5 @@ urlpatterns = [
     path('products/', upsell.views.products, name = 'products'),
     path('orders/', upsell.views.orders, name = 'orders'),
     path('categories/', upsell.views.categories, name = 'categories'),
-    path('order_item/', upsell.views.order_item, name = 'order_itme')
+    path('order_item/', upsell.views.order_item, name = 'order_item'),
 ]
