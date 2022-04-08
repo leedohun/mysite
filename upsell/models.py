@@ -32,6 +32,8 @@ class product(models.Model):
   price = models.CharField(null=True, max_length=500)
   display = models.BooleanField(null=True, default=True)
   selling = models.BooleanField(null=True, default=True)
+  category_no = models.IntegerField(null=True,)
+  category_name = models.CharField(null=True, max_length=500)
   detail_image = models.CharField(blank=True, max_length=500)
   list_image = models.CharField(blank=True, max_length=500)
   tiny_image = models.CharField(blank=True, max_length=500)
@@ -44,11 +46,10 @@ class category(models.Model):
   mall_cafe24 = models.ForeignKey(mall_cafe24, on_delete=models.CASCADE)
   mall = models.ForeignKey(mall, on_delete=models.CASCADE)
 
-  category_no = models.IntegerField(null=True,)
-  category_name = models.CharField(null=True, max_length=500)
-  upper_category_name = models.CharField(null=True, max_length=500)
-  upper_category_no = models.IntegerField(null=True, )
-  root_category_no = models.IntegerField(null=True, )
-
+  category_no = models.IntegerField(blank=True,)
+  category_name = models.CharField(blank=True, max_length=500)
+  category_depth = models.IntegerField(blank=True,)
+  upper_category_no = models.IntegerField(blank=True, )
+  upper_category_name = models.CharField(blank=True, max_length=500)
 
 # 쇼핑몰 주문 정보 테이블

@@ -2,14 +2,14 @@ import requests
 
 from Cafe24_Data import *
 
-def retrieve_Product_Categories(Access_Token):
+def retrieve_Product_Categories(Access_Token, count):
   print("============================================================================================")
   print("============================================================================================")
   print("====================    Cafe24 Retrieve a list of product categories    ====================")
   print("============================================================================================")
   print("============================================================================================")
 
-  requestsURL = "https://" + mall_id + ".cafe24api.com/api/v2/admin/categories"
+  requestsURL = "https://" + mall_id + ".cafe24api.com/api/v2/admin/categories?offset=" + str(count)
 
   # Access Token 요청에 필요한 header
   h = {
