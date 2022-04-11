@@ -30,3 +30,11 @@
   {% csrf_token %}
   <button type="submit">create</button>
 </form>
+
+<br />
+
+<h3>product_by_category</h3>
+<form action="{% url 'products_by_categories' %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">create</button>
+</form>

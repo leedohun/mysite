@@ -24,4 +24,5 @@ urlpatterns = [
     path('orders/', upsell.views.orders, name = 'orders'),
     path('categories/', upsell.views.categories, name = 'categories'),
     path('order_item/', upsell.views.order_item, name = 'order_item'),
+    path('products_by_categories/', upsell.views.products_by_categories, name = 'products_by_categories'),
 ]

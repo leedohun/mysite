@@ -3,6 +3,7 @@ import json
 
 import datetime
 from pkgutil import iter_modules
+from sre_constants import CATEGORY_NOT_SPACE
 
 from django.shortcuts import redirect, render
 from .models import *
@@ -66,24 +67,6 @@ def products(request):
   # 사용가능한 Access Key 발급
   with open("./" + mall_id + "_Access_Token.json", 'r') as f:
     access_Token_Data = json.load(f)
-
-  product_category_no = {}
-  product_category = {}
-  categories_data = category.objects.all()
-
-  for category_no in categories_data:
-    product_category[category_no.category_no] = category_no.category_depth
-
-  sorted_product_category = sorted(product_category.items(), key=lambda item:item[1], reverse=True)
-
-  for category_no in sorted_product_category:
-    product_by_categories = retrieve_Product_by_Categories(access_Token_Data['access_token'], category_no[0]).json()
-
-    for product_by_category in product_by_categories["products"]:
-      if int(product_by_category["product_no"]) in product_category_no:
-        continue
-      else:
-        product_category_no[int(product_by_category["product_no"])] = int(category_no[0])
   
   # 쇼핑몰의 현재 제품 데이터 가져오기
   product_Resource = retrieve_Product_Resource(access_Token_Data['access_token']).json()
@@ -113,12 +96,14 @@ def products(request):
     elif products["selling"] == "F":
       order.selling = False
 
-    order.category_no = product_category_no[products["product_no"]]
-
-    order.detail_image = products["detail_image"]
-    order.list_image = products["list_image"]
-    order.tiny_image = products["tiny_image"]
-    order.small_image = products["small_image"]
+    if products["detail_image"]:
+      order.detail_image = products["detail_image"]
+    if products["list_image"]:
+      order.list_image = products["list_image"]
+    if products["tiny_image"]:
+      order.tiny_image = products["tiny_image"]
+    if products["small_image"]:
+      order.small_image = products["small_image"]
 
     if products["sold_out"] == "T":
       order.sold_out = True
@@ -186,3 +171,38 @@ def categories(request):
     i = i + 10
 
   return render(request,'upsell/categories.html')
+
+
+# 제품과 카테고리 저장
+def products_by_categories(request):
+  # 사용가능한 Access Key 발급
+  with open("./" + mall_id + "_Access_Token.json", 'r') as f:
+    access_Token_Data = json.load(f)
+
+  chk_category_no = set()
+  categories_data = category.objects.all()
+
+  for category_data in categories_data:
+
+    time.sleep(1)
+
+    if category_data.category_no not in chk_category_no:
+      chk_category_no.add(category_data.category_no)
+      product_by_categories = retrieve_Product_by_Categories(access_Token_Data['access_token'], category_data.category_no).json()
+
+      print(product_by_categories)
+
+      for product_by_cate in product_by_categories["products"]:
+        get_product = product.objects.filter(product_no=product_by_cate["product_no"])
+
+        order, created = product_by_category.objects.get_or_create(
+          mall_cafe24 = mall_cafe24.objects.all()[0],
+          mall = mall.objects.all()[0],
+          
+          product = get_product[0],
+
+          category_no = category_data.category_no,
+          category_name = category_data.category_name
+        )
+  
+  return render(request,'upsell/products_by_categories.html')

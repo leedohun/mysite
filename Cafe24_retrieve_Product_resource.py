@@ -9,7 +9,7 @@ def retrieve_Product_Resource(Access_Token):
   print("============================================================================================")
   print("============================================================================================")
 
-  requestsURL = "https://" + mall_id + ".cafe24api.com/api/v2/admin/products"
+  requestsURL = "https://" + mall_id + ".cafe24api.com/api/v2/admin/products?limit=50"
 
   # Access Token 요청에 필요한 header
   h = {
