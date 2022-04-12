@@ -59,4 +59,11 @@ class category(models.Model):
   upper_category_no = models.IntegerField(blank=True, )
   upper_category_name = models.CharField(blank=True, max_length=500)
 
+
 # 쇼핑몰 주문 정보 테이블
+class order(models.Model):
+  mall_cafe24 = models.ForeignKey(mall_cafe24, on_delete=models.CASCADE)
+  mall = models.ForeignKey(mall, on_delete=models.CASCADE)
+
+  order_id = models.CharField(blank=True, max_length=500)
+  order_data = models.DateField(blank=True,)

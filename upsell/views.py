@@ -14,10 +14,11 @@ from Cafe24_Data import *
 from Cafe24_get_Code import *           # Cafe24 API 필요한 인증 코드
 from Cafe24_get_Access_Token import *   # Cafe24 API 필요한 Access Token 발급
 
-from Cafe24_retrieve_list_product_by_categories import *    # Cafe24 쇼핑몰 product by category 검색
+from Cafe24_retrieve_list_product_by_categories import *    # Cafe24 쇼핑몰 product by category 정보 검색
 from Cafe24_retrieve_Product_resource import *              # Cafe24 쇼핑몰 product 정보 검색
 from Cafe24_retrieve_list_product_category_count import *   # Cafe24 쇼핑몰 product categories count 검색
-from Cafe24_retrieve_list_product_categories import *       # Cafe24 쇼핑몰 product categories정보 검색
+from Cafe24_retrieve_list_product_categories import *       # Cafe24 쇼핑몰 product categories 정보 검색
+from Cafe24_retrieve_Order_resource import *                # Cafe24 쇼핑몰 product order 정보 검색
 
 # Create your views here.
 
@@ -116,6 +117,14 @@ def products(request):
 
 
 def orders(request):
+  # 사용가능한 Access Key 발급
+  with open("./" + mall_id + "_Access_Token.json", 'r') as f:
+    access_Token_Data = json.load(f)
+
+  product_order_data = retrieve_Order_Resource(access_Token_Data['access_token']).json()
+
+  print(product_order_data)
+
   return render(request,'upsell/orders.html')
 
 def order_item(request):
