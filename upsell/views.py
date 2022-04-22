@@ -58,6 +58,16 @@ def Cafe24API():
   else:
     make_Access_Token_File()
 
+def login(request):
+  if request.method == 'POST':
+    code = request.POST['code']
+
+    get_Access_Token(code)
+
+    return render(request,'upsell/home.html')
+  
+  else:
+    return render(request, 'upsell/login.html')
 
 def home(request):
   Cafe24API()
@@ -193,7 +203,7 @@ def products_by_categories(request):
 
   for category_data in categories_data:
 
-    time.sleep(1)
+    time.sleep(0.1)
 
     if category_data.category_no not in chk_category_no:
       chk_category_no.add(category_data.category_no)

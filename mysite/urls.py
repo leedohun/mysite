@@ -19,7 +19,8 @@ import upsell.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', upsell.views.home, name = 'home'),
+    path('', upsell.views.login, name = 'login'),
+    path('home/', upsell.views.home, name = 'home'),
     path('products/', upsell.views.products, name = 'products'),
     path('orders/', upsell.views.orders, name = 'orders'),
     path('categories/', upsell.views.categories, name = 'categories'),
